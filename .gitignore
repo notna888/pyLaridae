@@ -56,3 +56,6 @@ env/
 
 # Development database
 *.db
+
+# Don't need the npm-debug.log
+npm-debug.log
