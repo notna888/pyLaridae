@@ -4,13 +4,7 @@ import datetime as dt
 
 from flask_login import UserMixin
 
-from pyLaridae.database import (
-    Column,
-    PkModel,
-    db,
-    reference_col,
-    relationship,
-)
+from pyLaridae.database import Column, PkModel, db, reference_col, relationship
 from pyLaridae.extensions import bcrypt
 
 
