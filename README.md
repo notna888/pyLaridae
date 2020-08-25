@@ -26,6 +26,10 @@ flask run --host=0.0.0.0
 
 You will see a pretty welcome screen.
 
+The default login is: <br/>
+Username: laridae
+Password: laridae
+
 #### Database Initialization (locally)
 
 Once you have installed your DBMS, run the following to create your app's
