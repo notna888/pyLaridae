@@ -51,8 +51,8 @@ env/
 # webpack-built files
 /pyLaridae/static/build/
 
-# Configuration
-.env
+# Configuration - Adding dev env variables to repo
+# .env
 
 # Development database
 *.db
