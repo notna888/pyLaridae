@@ -1,8 +1,12 @@
 
 {% set navigation_bar = [
     (url_for('public.home'), 'index', 'Home'),
-    # ('/downloads/', 'downloads', 'Downloads'),
     (url_for('public.about'), 'about', 'About')
+] -%}
+
+{% set logged_in_links = [
+    ('/', 'media', 'Media'),
+    ('/', 'post', 'Posts')
 ] -%}
 
 {% set active_page = active_page|default('index') -%}
@@ -26,6 +30,17 @@
             </a>
           </li>
         {% endfor %}
+
+        {% if current_user and current_user.is_authenticated %}
+          {% for href, id, caption in logged_in_links %}
+            <li class="nav-item {% if id == active_page %}active{% endif %}">
+              <a class="nav-link" href="{{ href|e }}">
+                {{ caption|e }}
+                {% if id == active_page %}<span class="sr-only">(current)</span>{% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        {% endif %}
     </ul>
     {% if current_user and current_user.is_authenticated %}
     <ul class="navbar-nav my-auto">
