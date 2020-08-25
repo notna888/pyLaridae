@@ -1,0 +1,9 @@
+
+<ul>
+{% for file_obj in all_files %}
+  <li>
+    {% if file_obj.is_folder %} (folder) {% endif %}
+    {{file_obj.name}}
+  </li>
+{% endfor %}
+</ul>

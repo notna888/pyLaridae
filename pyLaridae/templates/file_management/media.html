@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% set active_page = "media" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Welcome {{ current_user.username }}</h1>
+    <h2>This is the Manage Media page.</h2>
+
+    <h3>Files</h3>
+    {% include 'file_management/file_list.html' %}
+
+    <h3>Upload</h3>
+    {% include 'file_management/upload/upload.html' %}
+
+  </div>
+{% endblock %}
