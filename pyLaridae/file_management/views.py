@@ -12,7 +12,7 @@ from flask import (
 
 from pyLaridae.file_management.forms import AddFileForm
 from pyLaridae.utils import flash_errors
-from pyLaridae.classes import FileObj
+from pyLaridae.file_classes import FileObj
 
 blueprint = Blueprint("file_management", __name__, static_folder="../static")
 
