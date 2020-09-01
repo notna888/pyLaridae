@@ -33,15 +33,7 @@ def media():
     current_app.logger.info("Media Page Loaded!")
     form = AddFileForm(request.form)
 
-    all_found_files = [
-        FileObj('Folder 1', True),
-        FileObj('File 1'),
-        FileObj('Folder 2', True),
-        FileObj('File 2'),
-        FileObj('File 3'),
-        FileObj('File 4'),
-        FileObj('File 5'),
-    ]
+    all_found_files = []
 
     context = {
         'form': form,
