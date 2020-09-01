@@ -8,6 +8,10 @@ class FileObj:
     location = ''
     # total_size = 0.0  # TODO
 
+    def to_html(self):
+        tag = f'<li><a href="#">{self.name}</a></li>'
+        return tag
+
     def __init__(self, name, location='.'):
         self.name = name
         self.location = location
@@ -19,6 +23,17 @@ class FileObj:
 class FolderObj(FileObj):
 
     internal_files = []
+
+    def to_html(self):
+        tag = f'<li><a href="#">{self.name}</a></li>'
+        ul_tag = '<ul>'
+        for i, internal_file in enumerate(self.internal_files):
+            # print(i, ':', internal_file)
+            # breakpoint()
+            ul_tag += internal_file.to_html()
+        ul_tag += '</ul>'
+
+        return tag+ul_tag
 
     def append_files(self, internal_files):
         current_files = self.internal_files
@@ -43,7 +58,9 @@ class FolderObj(FileObj):
         return dict_of_files
 
     def __repr__(self):
-        return f'Folder: {self.location}/{self.name}'
+        folder_part = f'Folder: {self.location}/{self.name}'
+        file_count = f'({len(self.internal_files)} files)'
+        return folder_part + file_count
 
 
 def folder_navigation(folder_location):
@@ -69,18 +86,39 @@ def folder_navigation(folder_location):
     return files
 
 
-def folder_test():
-    """This is a test function to test the creation of the folder object
-
-    Returns:
-        folder_obj: .
-
+def real_folder_test():
+    """
+        This is a test function to test the creation of the folder object
+        based off of a directory
     """
 
     path_to_walk = "."
     folder_structure = folder_navigation(path_to_walk)
     print(folder_structure)
+    # for f in folder_structure:
+    #     print(f.to_html())
+
+def fake_folder_test():
+    File1 = FileObj('File1')
+    File2 = FileObj('File2')
+    File3 = FileObj('File3')
+    File4 = FileObj('File4')
+    File5 = FileObj('File5')
+    File6 = FileObj('File6')
+
+    Folder1 = FolderObj('Folder1')
+    Folder2 = FolderObj('Folder2', 'Folder1')
+    Folder3 = FolderObj('Folder3', 'Folder1/Folder2')
+    Folder4 = FolderObj('Folder4')
+
+    Folder1.append_files([File1, Folder2, Folder4])
+    Folder2.append_files([Folder3, File2, File3])
+    Folder3.append_files([File4, File5])
+    Folder4.append_files([File6])
+
+    print(Folder1.to_html())
 
 
 if __name__ == '__main__':
-    folder_test()
+    # real_folder_test()
+    fake_folder_test()
