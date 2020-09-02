@@ -12,11 +12,20 @@ class FileObj:
     def __init__(self, name):
         self.name = name
 
-    def html_name(self):
-        return html_escape(self.name)
+    def file_name(self):
+        return str(self.name).split('/')[-1]
+
+    def url_location(self):
+        name = self.name
+        if(name.startswith('.')):
+            name = name[1:]
+        if(name.startswith('/')):
+            name = name[1:]
+        return html_escape(name)
 
     def to_html(self):
-        tag = f'<li><a href="#">{self.name}</a></li>'
+        fixed_filename = self.file_name()
+        tag = f'<li><a href="#">{fixed_filename}</a></li>'
         return tag
 
     def __repr__(self):
@@ -30,7 +39,7 @@ class FolderObj(FileObj):
         self.internal_files = []
 
     def this_folder_li_tag(self):
-        return f'<li><a href="/{self.html_name()}">{self.name}</a></li>'
+        return f'<li><a href="/{self.url_location()}">{self.name}</a></li>'
 
     def to_html(self, depth=None):
         tag = self.this_folder_li_tag()
@@ -102,12 +111,25 @@ def folder_navigation(folder_location):
 
     # This would print all the files and directories
     for file_object in files_and_dirs:
+        # print(f'Looking at {file_object}')
+        file_object = f'{folder_location}/{file_object}'
         if path.isdir(file_object):
-            pass
-            print(f'{file_object} is a directory')
+            # print(f'{file_object} is a directory')
+            this_sub_directory = folder_navigation(file_object)
+            folder = FolderObj(
+                file_object
+            )
+            folder.append_files(this_sub_directory)
+            files.append(folder)
+            # print(f'appended {folder} to files')
         elif path.isfile(file_object):
-            pass
-            print(f'{file_object} is a file')
+            # print(f'{file_object} is a file')
+            this_file = FileObj(
+                file_object
+            )
+            files.append(this_file)
+            # print(f'appended {this_file} to files')
+    # print(files)
     return files
 
 
@@ -119,9 +141,8 @@ def real_folder_test():
 
     path_to_walk = "."
     folder_structure = folder_navigation(path_to_walk)
-    print(folder_structure)
-    # for f in folder_structure:
-    #     print(f.to_html())
+    return folder_structure
+
 
 def fake_folder_test():
     File1 = FileObj('File1')
@@ -141,10 +162,13 @@ def fake_folder_test():
     Folder3.append_files([File4, File5])
     Folder4.append_files([File6])
 
-    return Folder1
+    files = []
+    files.append(Folder1)
+
+    return files
 
 
 if __name__ == '__main__':
-    # real_folder_test()
-    top_folder = fake_folder_test()
-    print(top_folder.to_html())
+    top_folder = real_folder_test()
+    # top_folder = fake_folder_test()
+    [print(f.to_html()) for f in top_folder]
