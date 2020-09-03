@@ -1,9 +1,6 @@
 
 <ul>
 {% for file_obj in all_files %}
-  <li>
-    {% if file_obj.is_folder %} (folder) {% endif %}
-    {{file_obj.name}}
-  </li>
+    {{file_obj.to_html() | safe}}
 {% endfor %}
 </ul>
