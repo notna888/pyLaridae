@@ -17,7 +17,7 @@ from pyLaridae.file_classes import folder_navigation
 blueprint = Blueprint("file_management", __name__, static_folder="../static")
 
 
-@blueprint.route("/media_management/upload", methods=["POST"])
+@blueprint.route("/media/upload", methods=["POST"])
 def upload():
     form = AddFileForm(request.form)
     if request.method == "POST":
@@ -27,7 +27,7 @@ def upload():
         else:
             flash_errors(form)
 
-@blueprint.route("/media_management", methods=["GET", "POST"])
+@blueprint.route("/media", methods=["GET", "POST"])
 def media():
     """Media page."""
     current_app.logger.info("Media Page Loaded!")
