@@ -6,7 +6,7 @@
 
 {% set logged_in_links = [
     (url_for('file_management.media'), 'media', 'Media'),
-    ('/', 'post', 'Posts')
+    (url_for('posts.post_index'), 'post', 'Posts')
 ] -%}
 
 {% set active_page = active_page|default('index') -%}
