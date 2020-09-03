@@ -1,4 +1,10 @@
 
+<style media="screen">
+  .folder{
+    background: grey;
+  }
+</style>
+
 <ul>
 {% for file_obj in all_files %}
     {{file_obj.to_html() | safe}}
