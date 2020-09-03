@@ -12,7 +12,7 @@ from flask import (
 
 from pyLaridae.file_management.forms import AddFileForm
 from pyLaridae.utils import flash_errors
-from pyLaridae.file_classes import FileObj
+from pyLaridae.file_classes import folder_navigation
 
 blueprint = Blueprint("file_management", __name__, static_folder="../static")
 
@@ -33,7 +33,8 @@ def media():
     current_app.logger.info("Media Page Loaded!")
     form = AddFileForm(request.form)
 
-    all_found_files = []
+    curr_path = './media'
+    all_found_files = folder_navigation(curr_path)
 
     context = {
         'form': form,
