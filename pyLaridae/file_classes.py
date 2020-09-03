@@ -39,7 +39,12 @@ class FolderObj(FileObj):
         self.internal_files = []
 
     def this_folder_li_tag(self):
-        return f'<li><a href="/{self.url_location()}">{self.name}</a></li>'
+        css_class = 'class="folder"'
+        url = self.url_location()
+        name = self.name
+        a_tag = f'<a href="/{url}">{name}</a>'
+
+        return f'<li {css_class}>{a_tag}</li>'
 
     def to_html(self, depth=None):
         tag = self.this_folder_li_tag()
