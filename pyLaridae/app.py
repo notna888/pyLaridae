@@ -5,7 +5,7 @@ import sys
 
 from flask import Flask, render_template
 
-from pyLaridae import commands, public, user, file_management
+from pyLaridae import commands, public, user, file_management, posts
 from pyLaridae.extensions import (
     bcrypt,
     cache,
@@ -52,6 +52,7 @@ def register_blueprints(app):
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
     app.register_blueprint(file_management.views.blueprint)
+    app.register_blueprint(posts.views.blueprint)
     return None
 
 
